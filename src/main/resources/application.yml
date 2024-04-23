@@ -1,0 +1,19 @@
+
+spring:
+  application.name: sshyuny
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:tempDB
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        '[format_sql]': TRUE
+
+logging:
+  level:
+    '[org.hibernate.SQL]': debug
+    '[org.hibernate.type]': trace
