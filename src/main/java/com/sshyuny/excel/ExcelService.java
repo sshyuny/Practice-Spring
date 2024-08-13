@@ -9,11 +9,13 @@ import java.util.List;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Service
 public class ExcelService {
     
     public List<Library> makeLibrariesFromExcel(MultipartFile reqFile) throws IOException, FileNotFoundException {

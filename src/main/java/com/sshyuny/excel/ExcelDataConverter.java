@@ -26,7 +26,7 @@ public abstract class ExcelDataConverter<T> {
         int lastRowNum = sheet.getLastRowNum();
         List<T> excelDataList = new ArrayList<>();
 
-        for (int i = startRowIdx; i < lastRowNum; i++) {
+        for (int i = startRowIdx; i < lastRowNum + 1; i++) {
             Row row = sheet.getRow(i);
             T excelData = convertExcelDataToClass(row, i);
             excelDataList.add(excelData);

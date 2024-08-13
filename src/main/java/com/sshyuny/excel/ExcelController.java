@@ -16,6 +16,7 @@ public class ExcelController {
     private final ExcelService excelService;
     
     // [MAC] curl -X POST -F "file=@/Users/sohyun/Documents/test/test.png" http://localhost:8080/excel/converter --verbose
+    // [WINDOW] curl -X POST -F "file=@C:\\Users\\user\\Desktop\\test.xlsx" http://localhost:8080/excel/converter --verbose
     @PostMapping("/excel/converter")
     public String postExcelConverter(@RequestParam("file") MultipartFile file) throws IOException {
 
