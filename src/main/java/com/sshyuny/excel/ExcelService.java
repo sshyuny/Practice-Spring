@@ -11,11 +11,15 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class ExcelService {
     
     public List<Library> makeLibrariesFromExcel(MultipartFile reqFile) throws IOException, FileNotFoundException {
 
-        File tempFile = File.createTempFile("upload", ".tmp"); // 임시 저장 위치 
+        File tempFile = File.createTempFile("tempfile", ".tmp"); // 임시 저장 위치 
+        log.info("임시 파일 위치 = ", tempFile.getAbsolutePath());
         reqFile.transferTo(tempFile);
 
         FileInputStream fileInputStream = new FileInputStream(tempFile);
