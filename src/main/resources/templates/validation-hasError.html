@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Practice Spring</title>
+    </head>
+    <body>
+        <form th:object="${bookReqDto}">
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">
+                    (글로벌 오류 메시지 발생하면 여기에 표시!)
+                </p>
+            </div>
+        </form>
+        <div th:errors="*{bookReqDto.price}">
+            (price 오류 발생하면 여기에 표시!)
+        </div>
+        <div th:errors="*{bookReqDto.isbn}">
+            (isbn 오류 발생하면 여기에 표시!)
+        </div>
+    </body>
+</html>
