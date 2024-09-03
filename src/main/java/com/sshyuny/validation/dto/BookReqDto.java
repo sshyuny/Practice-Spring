@@ -13,7 +13,7 @@ public class BookReqDto {
 
     @Override
     public String toString() {
-        return "isbn = " + isbn + " & price = " + price;
+        return "isbn = " + isbn + " & price = " + price + " & title = " + title + " & subTitle = " + subTitle;
     }
 
 }

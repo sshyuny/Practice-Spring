@@ -21,6 +21,8 @@ public class ValidationController {
     }
     
     /*
+     * FieldError 첫 번째 생성자 사용 버전!
+     * 
      * [일반] curl -X POST -d "isbn=1122334455&price=12000" http://localhost:8080/validation/myself
      * [타입에러 컨트롤러 진입 가능!] curl -X POST -d "isbn=1122334455&price=twothousand" http://localhost:8080/validation/myself
      * [isbn, pricd 에러] curl -X POST -d "isbn=11223&pri" http://localhost:8080/validation/myself
@@ -68,5 +70,42 @@ public class ValidationController {
     public String myselfJson(@RequestBody BookReqDto bookReqDto, BindingResult bindingResult) {
         System.out.println("/validation/myself/json 요청 컨트롤러 메서드 들어옴!");
         return "done";
+    }
+
+    /*
+     * FieldError 두 번째 생성자 사용 버전!
+     */
+    @PostMapping("/validation/myself/with-codes")
+    public String myselfWithCodes(@ModelAttribute BookReqDto bookReqDto, BindingResult bindingResult) {
+
+        System.out.println(bookReqDto);
+
+        String isbn = bookReqDto.getIsbn();
+        Integer price = bookReqDto.getPrice();
+        String title = bookReqDto.getTitle();
+        String subTitle = bookReqDto.getSubTitle();
+
+        if (isbn == null || isbn.isBlank() || isbn.length() < 10 || isbn.length() > 13) {
+            bindingResult.addError(new FieldError("bookReqDto", "isbn", isbn, false, new String[] {"length.bookReqDto.isbn"}, null, null));
+        }
+
+        if (price == null || price <= 1000 || price >= 10000000) {
+            bindingResult.addError(new FieldError("bookReqDto", "price", price, false, new String[] {"range.bookReqDto.price"}, new Object[] {1000, 1000000}, null));
+        }
+
+        if (title != null && subTitle != null) {
+            int totalTitleLength = title.length() + subTitle.length();
+            if (totalTitleLength > 24) {
+                bindingResult.addError(new ObjectError("bookReqDto", new String[] {"totalTitleMax"}, new Object[] {24, totalTitleLength}, null));
+            }
+        }
+
+        if (bindingResult.hasErrors()) {
+            System.out.println("검증 실패!");
+            return "validation-hasError";
+        }
+        
+        System.out.println("검증 통과!");
+        return "validation-success";
     }
 }

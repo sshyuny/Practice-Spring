@@ -12,6 +12,8 @@ spring:
     properties:
       hibernate:
         '[format_sql]': TRUE
+  messages:
+    basename: messages, errors
 
 logging:
   level:
